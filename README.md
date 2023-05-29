@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="yagbic.webp" alt="Yet Another GitHub Batch Issue Creator" style="max-width:50%">
+  <img src="yagbic.webp" alt="Yet Another GitHub Batch Issue Creator" width="50%">
 </div>
 
 ## Overview
