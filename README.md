@@ -9,13 +9,14 @@ This project provides a CLI that you can use to create an issue in GitHub with t
 I use it as [AsyncAPI](https://www.asyncapi.com/) for example like this:
 ```bash
 #this will create the same issue with the same title in all repos in asyncapi org except two listed under "-e" flag 
-GITHUB_TOKEN=******** python yagbic.py asyncapi issue_content.md "Need for urgent changes in GitHub Actions automation" -e shape-up-process,glee-hello-world
+GITHUB_TOKEN=******** python yagbic.py asyncapi issue_content.md "Need for urgent changes in GitHub Actions automation" -e "shape-up-process,glee-hello-world,.github" -l "area/ci-cd"
 ```
 
 ## Usage
 
 1. Just clone this repo
 1. Install dependency: `pip install PyGithub`
+1. [Get GitHub PAT (access token)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 1. Get commands list: `python yagbic.py --help`
 
 ```bash
