@@ -10,7 +10,7 @@ def main():
 
     repos_list = get_repos_list(args.org_user, args.include, args.exclude)
     template_content = get_template_content(args.template, args.replace)
-    create_issues(args.org_user, repos_list, args.title, template_content)
+    create_issues(args.org_user, repos_list, args.title, template_content, args.labels)
 
 def setup_cli():
 
@@ -24,7 +24,7 @@ You have different options that you can use to customize CLI actions.
 
 Example usage:
     GITHUB_TOKEN=MY_TOKEN python yagbic.py OWNER PATH_TO_MARKDOWN TITLE
-    GITHUB_TOKEN=MY_TOKEN python yagbic.py OWNER PATH_TO_MARKDOWN TITLE -i repo_1,repo_2
+    GITHUB_TOKEN=MY_TOKEN python yagbic.py OWNER PATH_TO_MARKDOWN TITLE -i repo_1,repo_2 -l "good first issue,area/ci-cd"
     GITHUB_TOKEN=MY_TOKEN python yagbic.py OWNER PATH_TO_MARKDOWN TITLE -e repo_1,repo_2,repo_3
     GITHUB_TOKEN=MY_TOKEN python yagbic.py OWNER PATH_TO_MARKDOWN TITLE -e repo_1,repo_2,repo_3 -r "PLACEHOLDER_1:CUSTOM_VALUE,PLACEHOLDER_2:CUSTOM VALUE"
 '''
@@ -36,6 +36,7 @@ Example usage:
     parser.add_argument('-e', '--exclude', help='Provide a comma separated list of repositories that this CLI should omit.')
     parser.add_argument('-i', '--include', help='Provide a comma separated list of repositories that this CLI should take into account.')
     parser.add_argument('-r', '--replace', help='Provide a comma separated list of values that should be replaced in the template. Something like: -r "PLACEHOLDER_1:CUSTOM_VALUE,PLACEHOLDER_2:CUSTOM VALUE", where PLACEHOLDER_1 is in the template and will be replaced with CUSTOM_VALUE')
+    parser.add_argument('-l', '--labels', help='Provide a comma separated list of labels to add to created issue.')
 
     return parser.parse_args()
 
@@ -75,11 +76,16 @@ def get_repos_list(org_user, includes, excludes):
 
     return repos_list
 
-def create_issues(owner, repos, title, content):
+def create_issues(owner, repos, title, content, labels):
+    labelsList = []
+
+    if labels:
+       labelsList = labels.split(',')
+
 
     for repo_name in repos:
         repo = g.get_repo(f'{owner}/{repo_name}')
-        issue = repo.create_issue(title=title, body=content)
+        issue = repo.create_issue(title=title, body=content, labels=labelsList)
         print(f'Issue URL for {repo_name}: {issue.html_url}')
 
 main()

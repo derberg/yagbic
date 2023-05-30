@@ -19,7 +19,7 @@ GITHUB_TOKEN=******** python yagbic.py asyncapi issue_content.md "Need for urgen
 1. Get commands list: `python yagbic.py --help`
 
 ```bash
-usage: yagbic.py [-h] [-e EXCLUDE] [-i INCLUDE] [-r REPLACE] org_user template title
+usage: yagbic.py [-h] [-e EXCLUDE] [-i INCLUDE] [-r REPLACE] [-l LABELS] org_user template title
 
 This is a CLI for creating issues on GitHub in batch. Authorization token needs to be passed as environment variable GITHUB_TOKEN.
 You provide the user or org name and path to file with issue contents. This CLI will create issue by default in all repositories.
@@ -28,7 +28,7 @@ You have different options that you can use to customize CLI actions.
 
 Example usage:
     GITHUB_TOKEN=MY_TOKEN python yagbic.py OWNER PATH_TO_MARKDOWN TITLE
-    GITHUB_TOKEN=MY_TOKEN python yagbic.py OWNER PATH_TO_MARKDOWN TITLE -i repo_1,repo_2
+    GITHUB_TOKEN=MY_TOKEN python yagbic.py OWNER PATH_TO_MARKDOWN TITLE -i repo_1,repo_2 -l "good-first-issue,ci-cd"
     GITHUB_TOKEN=MY_TOKEN python yagbic.py OWNER PATH_TO_MARKDOWN TITLE -e repo_1,repo_2,repo_3
     GITHUB_TOKEN=MY_TOKEN python yagbic.py OWNER PATH_TO_MARKDOWN TITLE -e repo_1,repo_2,repo_3 -r "PLACEHOLDER_1:CUSTOM_VALUE,PLACEHOLDER_2:CUSTOM VALUE"
 
@@ -45,4 +45,6 @@ options:
                         Provide a comma separated list of repositories that this CLI should take into account.
   -r REPLACE, --replace REPLACE
                         Provide a comma separated list of values that should be replaced in the template. Something like: -r "PLACEHOLDER_1:CUSTOM_VALUE,PLACEHOLDER_2:CUSTOM VALUE", where PLACEHOLDER_1 is in the template and will be replaced with CUSTOM_VALUE
+  -l LABELS, --labels LABELS
+                        Provide a comma separated list of labels to add to created issue.
 ```
